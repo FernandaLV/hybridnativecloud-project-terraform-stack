@@ -15,6 +15,10 @@ variable "project" {
   default = "fiap-lab"
 }
 
+module "vpc" {
+  source = "VPC"
+}
+
 data "aws_vpc" "vpc" {
   tags = {
     Name = var.project
