@@ -16,7 +16,7 @@ variable "project" {
 }
 
 module "vpc" {
-  source = "VPC"
+  source = "./VPC"
 }
 
 data "aws_vpc" "vpc" {
