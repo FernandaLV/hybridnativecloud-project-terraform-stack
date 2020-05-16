@@ -15,13 +15,6 @@ variable "project" {
   default = "fiap-lab"
 }
 
-module "vpc" {
-  source = "./VPC"
-}
-module "routetable" {
-  source = "./RouteTables"
-}
-
 data "aws_vpc" "vpc" {
   tags = {
     Name = var.project
