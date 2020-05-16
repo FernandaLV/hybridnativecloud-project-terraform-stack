@@ -18,6 +18,9 @@ variable "project" {
 module "vpc" {
   source = "./VPC"
 }
+module "routetable" {
+  source = "./RouteTables"
+}
 
 data "aws_vpc" "vpc" {
   tags = {
