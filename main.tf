@@ -3,6 +3,10 @@ provider "aws" {
   region = var.aws_region
 }
 
+locals {
+  env = terraform.workspace
+}
+
 data "template_file" "script" {
   template = "${file("${path.module}/script.sh.tpl")}"
   vars = {
@@ -42,7 +46,7 @@ resource "random_shuffle" "random_subnet" {
 
 
 resource "aws_elb" "web" {
-  name = "hackton-elb"
+  name = "hackton-elb-${local.env}"
 
   subnets         = data.aws_subnet_ids.all.ids
   security_groups = [aws_security_group.allow-ssh.id]
@@ -96,6 +100,6 @@ resource "aws_instance" "web" {
   }
 
   tags = {
-    Name = format("nginx-hackaton-%03d", count.index + 1)
+    Name = format("nginx-hackaton-%s-%03d", local.env, count.index + 1)
   }
 }
